@@ -2,25 +2,58 @@
 {
   "npc_dota_hero_lina_raid"
   {
-    "AbilityLayout"     "6"
+    "AbilityLayout"     "4"
     "override_hero"     "npc_dota_hero_lina"
     "SoundSet"          "0"
-    "Ability1"        "example_ability"
-    "Ability2"        "test_ability"
-    "Ability3"        "lina_impale"
-    "Ability4"        "lina_totem"
-    "Ability5"        "lina_teleport_totem"
-    "Ability6"        "barebones_empty6"
-    "Ability7"        ""
-    "Ability8"        ""
-    "Ability9"        ""
-    "Ability10"       ""
-    "Ability11"       ""
-    "Ability12"       ""
-    "Ability13"       ""
-    "Ability14"       ""
-    "Ability15"       ""
-    "Ability16"       ""
+    "Ability1"        "lina_impale"
+    "Ability2"        "lina_totem"
+    "Ability3"        "lina_teleport_totem"
+    "Ability4"        ""
+
+    "ArmorPhysical"       "0"                 // Physical protection.
+    "MagicalResistance"       "0"                 // Magical protection (percentage).
+
+    "AttackCapabilities"    "DOTA_UNIT_CAP_RANGED_ATTACK"
+    "AttackDamageMin"     "400"                   // Damage range min.
+    "AttackDamageMax"     "499"                   // Damage range max.
+
+    //"AttributePrimary"      "DOTA_ATTRIBUTE_STRENGTH"
+    "AttributeBaseStrength"   "0"                   // Base strength
+    "AttributeStrengthGain"   "0"                   // Strength bonus per level.
+    "AttributeBaseIntelligence" "0"                   // Base intelligence
+    "AttributeIntelligenceGain" "0"                   // Intelligence bonus per level.
+    "AttributeBaseAgility"    "0"                   // Base agility
+    "AttributeAgilityGain"    "0"                   // Agility bonus per level.
+
+    "BountyXP"          "0"                 // Experience earn.
+    "BountyGoldMin"       "0"                   // Gold earned min.
+    "BountyGoldMax"       "0"                   // Gold earned max.
+
+    //"BoundsHullName"      "DOTA_HULL_SIZE_HERO"
+    //"RingRadius"        "70"
+
+    "MovementCapabilities"    "DOTA_UNIT_CAP_MOVE_GROUND"
+    "MovementSpeed"       "360"                 // Speed.
+    "MovementTurnRate"      "1.0"                 // Turning rate.
+
+    "StatusHealth"        "100"                 // Base health.
+    "StatusHealthRegen"     "0.0"                 // Health regeneration rate.
+    "StatusMana"        "100"                   // Base mana.
+    "StatusManaRegen"     "-2"                 // Mana regeneration rate.
+
+    "VisionDaytimeRange"    "1800"                  // Range of vision at night time.
+    "VisionNighttimeRange"    "1800"                  // Range of vision at night time.
+  }
+
+  "npc_dota_hero_death_prophet_raid"
+  {
+    "AbilityLayout"     "4"
+    "override_hero"     "npc_dota_hero_death_prophet"
+    "SoundSet"          "0"
+    "Ability1"        ""
+    "Ability2"        ""
+    "Ability3"        ""
+    "Ability4"        ""
 
     "ArmorPhysical"       "0"                 // Physical protection.
     "MagicalResistance"       "0"                 // Magical protection (percentage).

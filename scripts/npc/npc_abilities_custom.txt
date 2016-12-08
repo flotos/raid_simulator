@@ -410,6 +410,11 @@
         "var_type"        "FIELD_FLOAT"
         "duration"        "40.0"
       }
+      "02"
+      {
+        "var_type"        "FIELD_FLOAT"
+        "bonus_damage"    "100 35 75"
+      }
     }
 
     "OnSpellStart"
@@ -472,18 +477,8 @@
         "var_type"        "FIELD_INTEGER"
         "radius"        "400 450 900"
       }
-      "02"
-      {
-        "var_type"        "FIELD_INTEGER"
-        "bonus_attack_speed"  "15 20 25"
-      }
-      "03"
-      {
-        "var_type"        "FIELD_INTEGER"
-        "bonus_damage"      "15 20 25"
-      }
       // Extra
-      "04"
+      "02"
       {
         "var_type"        "FIELD_FLOAT"
         "think_interval"    "1"
@@ -492,7 +487,7 @@
 
     "Modifiers"
     {
-      "modifier_feral_impulse_datadriven"
+      "modifier_global_totem_aura"
       {
         "Passive"   "1"
 
@@ -514,7 +509,7 @@
               {
                 "ScriptFile"  "scripts/vscripts/abilities/lina/totem_aura.lua"
                 "Function"    "TotemAura"
-                "modifier"    "modifier_feral_impulse_unit_datadriven"
+                "modifier"    "modifier_totem_aura"
               }
             }
           }
@@ -539,29 +534,17 @@
               {
                 "ScriptFile"  "scripts/vscripts/abilities/lina/totem_aura.lua"
                 "Function"    "TotemAura"
-                "modifier"    "modifier_feral_impulse_unit_datadriven"
+                "modifier"    "modifier_totem_aura"
               }
             }
           }
         }
-
-        "Properties"
-        {
-          "MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"    "%bonus_attack_speed"
-            "MODIFIER_PROPERTY_BASEDAMAGEOUTGOING_PERCENTAGE" "%bonus_damage" 
-        }
       }
 
-      "modifier_feral_impulse_unit_datadriven"
+      "modifier_totem_aura"
       {
         "IsBuff"      "1"
         "IsPurgable"  "0"
-
-        "Properties"
-        {
-          "MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT"    "%bonus_attack_speed"
-          "MODIFIER_PROPERTY_BASEDAMAGEOUTGOING_PERCENTAGE" "%bonus_damage" 
-        }
       }
     } 
   }
@@ -808,14 +791,7 @@
           "RunScript"
           {
             "ScriptFile"  "scripts/vscripts/abilities/lina/impale.lua"
-            "Function"    "MenaceGain"
-          }
-
-          "Damage"
-          {
-            "Target"    "TARGET"
-            "Type"      "DAMAGE_TYPE_MAGICAL"
-            "Damage"    "%AbilityDamage"
+            "Function"    "Impale"
           }
         }
       }
