@@ -50,7 +50,7 @@
     "AbilityLayout"     "4"
     "override_hero"     "npc_dota_hero_death_prophet"
     "SoundSet"          "0"
-    "Ability1"        ""
+    "Ability1"        "death_prophet_bubble_shield"
     "Ability2"        ""
     "Ability3"        ""
     "Ability4"        ""

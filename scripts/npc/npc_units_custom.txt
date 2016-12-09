@@ -121,8 +121,8 @@
                 }
             }
 
+        }
     }
-  }
 
     // Ward for the lina Q ability
     "npc_lina_totem"
@@ -145,6 +145,61 @@
         //----------------------------------------------------------------
         "AbilityLayout"     "2"
         "Ability1"          "totem_aura"
+        "Ability2"          "dummy_passive"
+
+        // Armor
+        //----------------------------------------------------------------
+        "ArmorPhysical"       "99"     // Physical protection.
+        "MagicalResistance"       "99"     // Magical protection.
+
+        // Attack
+        //----------------------------------------------------------------
+        "AttackCapabilities"        "DOTA_UNIT_CAP_NO_ATTACK"     // Type of attack - melee, ranged, etc.
+
+        // Bounds
+        //----------------------------------------------------------------
+        "BoundsHullName"      "DOTA_HULL_SIZE_SMALL"      // Hull type used for navigation/locomotion.
+
+        // Movement
+        //----------------------------------------------------------------
+        "MovementCapabilities"    "DOTA_UNIT_CAP_MOVE_NONE"     // Type of locomotion - ground, air
+        "MovementSpeed"             "0"         // Speed
+
+        // Status
+        //----------------------------------------------------------------
+        "StatusHealth"        "99999"     // Base health.
+        "StatusHealthRegen"     "500"     // Health regeneration rate.
+        "StatusMana"        "0"     // Base mana.
+
+        //Inventory
+        "HasInventory"              "0"
+    }
+
+    // Dummy unit for death prophet W AOE
+    "npc_bubble_shield"
+    {
+        // General
+        //----------------------------------------------------------------
+        //"BaseClass"         "npc_dota_earth_spirit_stone"  // Class of entity of link to.
+        //"BaseClass"         "npc_dota_building"
+        "BaseClass"         "npc_dota_creature"
+        //"Model"             "models/items/pugna/ward/draining_wight/draining_wight.vmdl"  // Model.
+        "SoundSet"          "Creep_Good_Range"          // Name of sound set.
+        "Level"             "1"
+        "UnitLabel"         "aoe"
+        "ModelScale"        "1"
+        "IsSummoned"        "1"
+        "ConsideredHero"    "0"
+
+        "precache"
+        {
+            "particle"  "particles/units/heroes/hero_abaddon/abaddon_borrowed_time.vpcf"
+        }
+
+        // Abilities
+        //----------------------------------------------------------------
+        "AbilityLayout"     "2"
+        "Ability1"          "bubble_shield_aura"
         "Ability2"          "dummy_passive"
 
         // Armor
