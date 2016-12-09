@@ -51,7 +51,7 @@
     "override_hero"     "npc_dota_hero_death_prophet"
     "SoundSet"          "0"
     "Ability1"        "death_prophet_bubble_shield"
-    "Ability2"        ""
+    "Ability2"        "death_prophet_bone_help"
     "Ability3"        ""
     "Ability4"        ""
 
