@@ -357,78 +357,7 @@
     }
   }
 
-  //Boss Abilities
-  //-----------------------------------------------------
-
-
-  //Heroes abilities
-  //-----------------------------------------------------
-
-  //Lina
-  //+----------------------------------------------------
-
-  //Q spell
-  // Rewrite of the Venomancer Plague Ward ability
-  // Author: Pizzalol and Rook
-  // Date: 30.09.2015.
-  "lina_totem"
-  {
-    // General
-    //-------------------------------------------------------------------------------------------------------------
-    "BaseClass"               "ability_datadriven"
-    "AbilityBehavior"         "DOTA_ABILITY_BEHAVIOR_POINT"
-    "SpellImmunityType"       "SPELL_IMMUNITY_ENEMIES_YES"
-    "AbilityTextureName"      "venomancer_plague_ward"
-
-    // Precache
-    //-------------------------------------------------------------------------------------------------------------
-    //"precache"
-    //{
-    //  "soundfile"     "soundevents/game_sounds_heroes/game_sounds_venomancer.vsndevts"
-    //  "model"         "models/heroes/venomancer/venomancer_ward.vmdl"
-    //}
-
-    // Casting
-    //-------------------------------------------------------------------------------------------------------------
-    "AbilityCastRange"        "200 550 980"
-    "AbilityCastPoint"        "0.0 0.0 0.0"
-
-    // Time   
-    //-------------------------------------------------------------------------------------------------------------
-    "AbilityCooldown"       "5.0 55 40"
-    
-    // Cost
-    //-------------------------------------------------------------------------------------------------------------
-    "AbilityManaCost"       "0"
-    
-    // Special  
-    //-------------------------------------------------------------------------------------------------------------
-    "AbilitySpecial"
-    {
-      "01"
-      {
-        "var_type"        "FIELD_FLOAT"
-        "duration"        "40.0"
-      }
-      "02"
-      {
-        "var_type"        "FIELD_FLOAT"
-        "bonus_damage"    "100 35 75"
-      }
-    }
-
-    "OnSpellStart"
-    {     
-      "RunScript"
-      {
-        "ScriptFile"    "scripts/vscripts/abilities/lina/totem.lua"
-        "Function"      "lina_totem_on_spell_start"
-        "Target"        "POINT"
-        "Duration"      "%duration"
-      }
-    }
-  }
-
+  //Dummy passive spell
   "dummy_passive"
   {
     "BaseClass"     "ability_datadriven"
@@ -454,6 +383,69 @@
             "MODIFIER_PROPERTY_ABSOLUTE_NO_DAMAGE_MAGICAL" "1"
             "MODIFIER_PROPERTY_ABSOLUTE_NO_DAMAGE_PURE" "1"
         }
+      }
+    }
+  }
+
+  //Boss Abilities
+  //-----------------------------------------------------
+
+
+  //Heroes abilities
+  //-----------------------------------------------------
+
+  //Lina
+  //+----------------------------------------------------
+
+  //Q spell
+  // Rewrite of the Venomancer Plague Ward ability
+  // Author: Pizzalol and Rook
+  // Date: 30.09.2015.
+  "lina_totem"
+  {
+    // General
+    //-------------------------------------------------------------------------------------------------------------
+    "BaseClass"               "ability_datadriven"
+    "AbilityBehavior"         "DOTA_ABILITY_BEHAVIOR_POINT"
+    "AbilityTextureName"      "venomancer_plague_ward"
+
+    "MaxLevel"               "3"
+    "RequiredLevel"          "0"
+    "LevelsBetweenUpgrades"  "1"
+
+    "AbilityCastRange"        "200 550 980"
+    "AbilityCastPoint"        "0.0 0.0 0.0"
+    "AbilityCooldown"       "5.0 55 40"
+    "AbilityManaCost"       "0"
+    
+    "AbilitySpecial"
+    {
+      "01"
+      {
+        "var_type"        "FIELD_FLOAT"
+        "duration"        "40.0"
+      }
+      "02"
+      {
+        "var_type"        "FIELD_FLOAT"
+        "bonus_damage"    "100 35 75"
+      }
+      //USED only for the tooltip
+      "03"
+      {
+        "var_type"        "FIELD_INTEGER"
+        "radius"        "400 450 900"
+      }
+    }
+
+    "OnSpellStart"
+    {     
+      "RunScript"
+      {
+        "ScriptFile"    "scripts/vscripts/abilities/lina/totem.lua"
+        "Function"      "lina_totem_on_spell_start"
+        "Target"        "POINT"
+        "Duration"      "%duration"
       }
     }
   }
@@ -572,10 +564,13 @@
     "BaseClass"               "ability_datadriven"
     "AbilityBehavior"         "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
     "AbilityUnitTargetTeam"   "DOTA_UNIT_TARGET_TEAM_FRIENDLY"
-    "AbilityUnitTargetType"   "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_CREEP"
+    "AbilityUnitTargetType"   "DOTA_UNIT_TARGET_HERO"
     "AbilityUnitTargetFlags"  "DOTA_UNIT_TARGET_FLAG_NOT_CREEP_HERO"
-    "SpellImmunityType"       "SPELL_IMMUNITY_ALLIES_NO"
     "AbilityTextureName"      "chen_test_of_faith_teleport"
+
+    "MaxLevel"               "3"
+    "RequiredLevel"          "0"
+    "LevelsBetweenUpgrades"  "1"
 
     // Precache
     //-------------------------------------------------------------------------------------------------------------
@@ -593,7 +588,7 @@
 
     // Time   
     //-------------------------------------------------------------------------------------------------------------
-    "AbilityCastRange"        "600 600 600 600"
+    "AbilityCastRange"        "600 800 1200"
     "AbilityCooldown"       "24.0 24.0 24.0 24.0"
 
     // Cost
@@ -602,14 +597,6 @@
 
     // Special
     //-------------------------------------------------------------------------------------------------------------
-    "AbilitySpecial"
-    {
-      "01"
-      {
-        "var_type"        "FIELD_FLOAT"
-        "hero_teleport_delay" "6.0 5.0 4.0 3.0"
-      }
-    }
 
     "OnSpellStart"
     {
@@ -645,9 +632,11 @@
     "AbilityUnitTargetTeam"     "DOTA_UNIT_TARGET_TEAM_BOTH"
     "AbilityUnitTargetType"     "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
     "AbilityUnitDamageType"     "DAMAGE_TYPE_MAGICAL" 
-    "SpellImmunityType"         "SPELL_IMMUNITY_ENEMIES_NO"
-    "FightRecapLevel"           "1"
     "AbilityTextureName"        "lion_impale"
+
+    "MaxLevel"               "3"
+    "RequiredLevel"          "0"
+    "LevelsBetweenUpgrades"  "1"
 
     // Precache
     //-------------------------------------------------------------------------------------------------------------
@@ -658,7 +647,7 @@
     }
 
     // Change Totemic Slam range if this changes below
-    "AbilityCastRange"        "500"
+    "AbilityCastRange"        "825"
     "AbilityCastPoint"        "0"
     "AbilityCooldown"       "1.0 1.0 1.0 1.0"
     "AbilityManaCost"       "0 0 0 0"
@@ -694,7 +683,7 @@
       "06"
       {
         "var_type"        "FIELD_FLOAT"
-        "mana_restore"      "5 150 225 300"
+        "menace_gain"      "5 150 225 300"
       }
       "06"
       {
@@ -777,9 +766,12 @@
     "AbilityUnitTargetTeam"     "DOTA_UNIT_TARGET_TEAM_BOTH"
     "AbilityUnitTargetType"     "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
     "AbilityUnitDamageType"     "DAMAGE_TYPE_MAGICAL" 
-    "SpellImmunityType"         "SPELL_IMMUNITY_ENEMIES_NO"
     "FightRecapLevel"           "1"
     "AbilityTextureName"        "lion_impale"
+
+    "MaxLevel"               "3"
+    "RequiredLevel"          "0"
+    "LevelsBetweenUpgrades"  "1"
 
     // Precache
     //-------------------------------------------------------------------------------------------------------------
@@ -789,25 +781,12 @@
       "particle"      "particles/units/heroes/hero_lion/lion_spell_impale.vpcf"
     }
 
-    // Casting
-    //-------------------------------------------------------------------------------------------------------------
-    "AbilityCastRange"        "500"
-    "AbilityCastPoint"        "0.3 0.3 0.3 0.3"
-    
-    // Time   
-    //-------------------------------------------------------------------------------------------------------------
+    "AbilityCastRange"      "825"
+    "AbilityCastPoint"      "0.3 0.3 0.3 0.3"
     "AbilityCooldown"       "1.0 1.0 1.0 1.0"
-
-    // Cost
-    //-------------------------------------------------------------------------------------------------------------
     "AbilityManaCost"       "0 0 0 0"
-    
-    // Damage.
-    //-------------------------------------------------------------------------------------------------------------
     "AbilityDamage"         "80 140 200 260"
     
-    // Special
-    //-------------------------------------------------------------------------------------------------------------
     "AbilitySpecial"
     {
       "01"
@@ -907,7 +886,13 @@
     "AbilityBehavior"         "DOTA_ABILITY_BEHAVIOR_POINT"
     "SpellImmunityType"       "SPELL_IMMUNITY_ENEMIES_YES"
     "AbilityTextureName"      "venomancer_plague_ward"
+    "AoERadius" "400"
 
+    "MaxLevel"               "3"
+    "RequiredLevel"          "0"
+    "LevelsBetweenUpgrades"  "1"
+
+    
     // Precache
     //-------------------------------------------------------------------------------------------------------------
     //"precache"
@@ -971,6 +956,11 @@
     "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_AURA"
     "AbilityUnitTargetTeam"     "DOTA_UNIT_TARGET_TEAM_FRIENDLY"
     "AbilityTextureName"      "skeleton_king_vampiric_aura"
+    
+    "MaxLevel"               "3"
+    "RequiredLevel"          "0"
+    "LevelsBetweenUpgrades"  "1"
+
     
     "AbilitySpecial"
     {
@@ -1038,6 +1028,13 @@
     "AbilityBehavior"           "DOTA_ABILITY_BEHAVIOR_NO_TARGET"
     "AbilityUnitTargetTeam"     "DOTA_UNIT_TARGET_TEAM_FRIENDLY"
     "AbilityTextureName"        "axe_berserkers_call"
+
+    "MaxLevel"               "3"
+    "RequiredLevel"          "0"
+    "LevelsBetweenUpgrades"  "1"
+
+    
+    "AoERadius" "600"
     
     "AbilitySpecial"
     {
@@ -1126,6 +1123,11 @@
     "AbilityUnitDamageType"     "DAMAGE_TYPE_PHYSICAL"
     "AbilityTextureName"      "clinkz_searing_arrows"
 
+    "MaxLevel"               "3"
+    "RequiredLevel"          "0"
+    "LevelsBetweenUpgrades"  "1"
+
+    
     // Casting
     //-------------------------------------------------------------------------------------------------------------
     "AbilityCastRange"        "200"
@@ -1157,6 +1159,11 @@
       {
         "var_type"            "FIELD_INTEGER"
         "damage_reduction"          "-75"
+      }
+      "04"
+      {
+        "var_type"            "FIELD_INTEGER"
+        "passive_attack_damage"          "5 10 15 20"
       }
     }
 
@@ -1225,6 +1232,15 @@
             "MODIFIER_PROPERTY_INCOMING_DAMAGE_PERCENTAGE" "%damage_reduction"
           }
       }
+
+      "modifier_deflect_passive"
+      {
+        "Passive" "1"
+        "Properties"
+        {
+          "MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE"  "%passive_attack_damage"
+        }
+      }
     }
 
   }
@@ -1246,17 +1262,32 @@
 
     "AbilityManaCost"       "0 0 0 0"
     
+    "MaxLevel"               "3"
+    "RequiredLevel"          "0"
+    "LevelsBetweenUpgrades"  "1"
+
+    
     "AbilitySpecial"
     {
-      "03"
+      "01"
       {
         "var_type"        "FIELD_INTEGER"
-        "armor"     "50 20 25 30"
+        "passive_magical_armor"     "50 20 25 30"
       }
-      "04"
+      "02"
       {
         "var_type"        "FIELD_INTEGER"
         "duration"     "2 20 25 30"
+      }
+      "03"
+      {
+        "var_type"        "FIELD_INTEGER"
+        "passive_strength"     "1 2 3"
+      }
+      "04"
+      {
+        "var_type"                    "FIELD_INTEGER"
+        "magical_resistance"   "10"
       }
     }
 
@@ -1270,7 +1301,7 @@
     {     
       "ApplyModifier"
       {
-        "ModifierName"  "modifier_bone_help"
+        "ModifierName"  "modifier_shell_armor"
         "Target"        "CASTER"
         "Duration"      "%duration"
       }
@@ -1278,7 +1309,7 @@
 
     "Modifiers"
     {
-      "modifier_bone_help"
+      "modifier_shell_armor"
       {
         "IsBuff"      "1"
 
@@ -1289,22 +1320,23 @@
         "EffectAttachType"  "follow_origin"
         "Properties"
         {
-          "MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"  "%armor"
+          "MODIFIER_PROPERTY_MAGICAL_RESISTANCE_BONUS"  "%magical_resistance"
         }
         
+      }
+
+      "modifier_shell_armor_passive"
+      {
+          "Passive" "1"
+          "Properties"
+              {
+                "MODIFIER_PROPERTY_STATS_STRENGTH_BONUS"        "%passive_strength"
+                "MODIFIER_PROPERTY_MAGICAL_RESISTANCE_BONUS"        "%passive_magical_armor"
+              }
       }
     }
 
   }
-
-
-
-
-
-
-
-
-
 
   // R spell// Rewrite of the Axe Berserkers Call ability
   // Author: Pizzalol
@@ -1325,6 +1357,11 @@
     "FightRecapLevel"       "1"
     "AbilityTextureName"      "axe_berserkers_call"
 
+    "MaxLevel"               "3"
+    "RequiredLevel"          "0"
+    "LevelsBetweenUpgrades"  "1"
+
+    
     // Precache
     //-------------------------------------------------------------------------------------------------------------
     "precache"
@@ -1368,6 +1405,11 @@
       {
         "var_type"        "FIELD_FLOAT"
         "duration"        "5"
+      }
+      "04"
+      {
+        "var_type"        "FIELD_INTEGER"
+        "passive_armor"   "5 10 15"    
       } 
     }
 
@@ -1475,6 +1517,15 @@
           }
         }
       }
+
+      "modifier_catch_me_passive"
+      {
+        "Passive" "1"
+        "Properties"
+        {
+          "MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"  "%passive_armor"
+        }
+      }
     }
   }
 
@@ -1484,31 +1535,25 @@
   // Date: 26.09.2015.
   "nyx_assassin_back_plan"
   {
-    // General
-    //-------------------------------------------------------------------------------------------------------------
     "BaseClass"       "ability_datadriven"
     "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
     "AbilityTextureName"  "mirana_leap"
 
-    // Precache
-    //-------------------------------------------------------------------------------------------------------------
+    "MaxLevel"               "3"
+    "RequiredLevel"          "0"
+    "LevelsBetweenUpgrades"  "1"
+
+    
     "precache"
     {
       "soundfile"     "soundevents/game_sounds_heroes/game_sounds_mirana.vsndevts"
     }
     
-    // Casting
-    //-------------------------------------------------------------------------------------------------------------
     "AbilityCastRange"        "0"
     "AbilityCastPoint"        "0.0 0.0 0.0 0.0"
-
-    // Time   
-    //-------------------------------------------------------------------------------------------------------------
     "AbilityCooldown"       "30.0 26.0 22.0 18.0"
     "AbilityDuration"       "10.0"
 
-    // Cost
-    //-------------------------------------------------------------------------------------------------------------
     "AbilityManaCost"       "0"
 
     // Special
@@ -1518,7 +1563,7 @@
       "01"
       {
         "var_type"        "FIELD_INTEGER"
-        "leap_distance"     "600 700 800 900"
+        "leap_distance"     "300 500 650"
       }
       "02"
       {
@@ -1533,7 +1578,7 @@
       "04"
       {
         "var_type"      "FIELD_INTEGER"
-        "radius"        "775"
+        "radius"        "200"
       }
       "07"
       {
@@ -1558,8 +1603,14 @@
       "11"
       {
         "var_type"        "FIELD_FLOAT"
-        "arrival_heal_delay"     "0.8"
+        "arrival_heal_delay"     "0.4"
       }
+      "12"
+      {
+        "var_type"        "FIELD_INTEGER"
+        "passive_movespeed_constant"     "100 200 300 400"
+      }
+    
     }
 
     "OnSpellStart"
@@ -1647,6 +1698,15 @@
         "Properties"
         {
           "MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT" "%arrival_heal"
+        }
+      }
+
+      "modifier_back_plan_passive"
+      {
+        "Passive" "1"
+        "Properties"
+        {
+          "MODIFIER_PROPERTY_MOVESPEED_BONUS_CONSTANT"  "%passive_movespeed_constant"
         }
       }
     }

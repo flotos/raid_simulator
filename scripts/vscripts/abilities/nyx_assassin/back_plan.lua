@@ -40,12 +40,12 @@ function LeapVertical( keys )
 	if ability.leap_traveled < ability.leap_distance/2 then
 		-- Go up
 		-- This is to memorize the z point when it comes to cliffs and such although the division of speed by 2 isnt necessary, its more of a cosmetic thing
-		ability.leap_z = ability.leap_z - ability.leap_speed/2
+		ability.leap_z = ability.leap_z + ability.leap_speed/2
 		-- Set the new location to the current ground location + the memorized z point
 		caster:SetAbsOrigin(GetGroundPosition(caster:GetAbsOrigin(), caster) + Vector(0,0,ability.leap_z))
 	else
 		-- Go down
-		ability.leap_z = ability.leap_z + ability.leap_speed/2
+		ability.leap_z = ability.leap_z - ability.leap_speed/2
 		caster:SetAbsOrigin(GetGroundPosition(caster:GetAbsOrigin(), caster) + Vector(0,0,ability.leap_z))
 	end
 end

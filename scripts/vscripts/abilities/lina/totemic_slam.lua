@@ -17,11 +17,14 @@ function TotemicSlam( keys )
 
 	-- Search for lina's impale
 	local lina_impale = caster:FindAbilityByName("lina_impale")
+	local impale_range = lina_impale:GetCastRange()
+
+	print('[RAID] impale range : ', impale_range)
 
 	local target_teams = DOTA_UNIT_TARGET_TEAM_FRIENDLY
 	local target_types = DOTA_UNIT_TARGET_ALL
 	local target_flags = DOTA_UNIT_TARGET_FLAG_PLAYER_CONTROLLED
-	local units = FindUnitsInRadius(caster_team, caster_location, nil, 500, target_teams, target_types, target_flags, FIND_CLOSEST, false)
+	local units = FindUnitsInRadius(caster_team, caster_location, nil, impale_range, target_teams, target_types, target_flags, FIND_CLOSEST, false)
 
 	local number_of_totems = 0
 	local totems = {}
@@ -37,6 +40,7 @@ function TotemicSlam( keys )
 	end
 
 	Timers:CreateTimer( 0.1, function()
+		lina_impale:EndCooldown()
 		caster:CastAbilityOnPosition(totems[number_of_totems]:GetAbsOrigin(), lina_impale, player_id)
 		number_of_totems = number_of_totems - 1
 		if number_of_totems > 0 then
