@@ -641,7 +641,7 @@
     // General
     //-------------------------------------------------------------------------------------------------------------
     "BaseClass"                 "ability_datadriven"
-    "AbilityBehavior"           "DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+    "AbilityBehavior"           "DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_IGNORE_TURN | DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
     "AbilityUnitTargetTeam"     "DOTA_UNIT_TARGET_TEAM_BOTH"
     "AbilityUnitTargetType"     "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
     "AbilityUnitDamageType"     "DAMAGE_TYPE_MAGICAL" 
@@ -657,6 +657,7 @@
       "particle"      "particles/units/heroes/hero_lion/lion_spell_impale.vpcf"
     }
 
+    // Change Totemic Slam range if this changes below
     "AbilityCastRange"        "500"
     "AbilityCastPoint"        "0"
     "AbilityCooldown"       "1.0 1.0 1.0 1.0"
@@ -880,7 +881,8 @@
         "EffectAttachType"  "follow_origin"
         "Properties"
         {
-          "MODIFIER_PROPERTY_CASTTIME_PERCENTAGE"  "0"
+          "MODIFIER_PROPERTY_CASTTIME_PERCENTAGE"  "1"
+          "MODIFIER_PROPERTY_TURN_RATE_PERCENTAGE"  "999999"
         }
         
       }
