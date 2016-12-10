@@ -6,6 +6,7 @@ function Impale( keys )
 	local caster = keys.caster
 	local ability = keys.ability
 	local damageDone = ability:GetAbilityDamage()
+	local healDone = ability:GetLevelSpecialValueFor("heal", ability:GetLevel() - 1)
 
 	-- Search for the totem buff value
 	local totem_spell = caster:FindAbilityByName("lina_totem")
@@ -14,15 +15,20 @@ function Impale( keys )
 
 	-- Applies it if Lina is under the totem aura
 	if caster:HasModifier("modifier_totem_aura") then
-		damageDone = damageDone * (1+ (totem_bonus_damage/100))
+		damageDone = damageDone * (1 + (totem_bonus_damage/100))
+		healDone = healDone * (1 + (totem_bonus_damage/100))
 	end
 
-	local damageTable = {
-		victim = target,
-		attacker = caster,
-		damage = damageDone,
-		damage_type = DAMAGE_TYPE_MAGICAL,
-	}
-	 
-	ApplyDamage(damageTable)
+	if target:GetTeam() ~= caster:GetTeam() then
+		local damageTable = {
+			victim = target,
+			attacker = caster,
+			damage = damageDone,
+			damage_type = DAMAGE_TYPE_MAGICAL,
+		}
+		 
+		ApplyDamage(damageTable)
+	else
+		target:Heal(healDone, caster)
+	end
 end

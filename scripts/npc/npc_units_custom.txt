@@ -11,13 +11,13 @@
     "Model"             "models/props_gameplay/pig.vmdl"  // Model.
     "SoundSet"          "Creep_Good_Range"          // Name of sound set.
     "Level"             "1"
-    "UnitLabel"         "healing_ward"
+    "UnitLabel"         "piggy"
     "ModelScale"        "4"
     
     // Abilities
     //----------------------------------------------------------------
     
-    "Ability1"          "lion_impale"     // Ability 1.
+    //"Ability1"          "lion_impale"     // Ability 1.
     "Ability2"          ""      // Ability 2.
     "Ability3"          ""      // Ability 3.
     "Ability4"          ""      // Ability 4.
@@ -34,8 +34,8 @@
     // Attack
     //----------------------------------------------------------------
     "AttackCapabilities"        "DOTA_UNIT_CAP_MELEE_ATTACK"     // Type of attack - melee, ranged, etc.
-    "AttackDamageMin"           "25"     // Damage range min.
-    "AttackDamageMax"           "25"     // Damage range max.
+    "AttackDamageMin"           "20"     // Damage range min.
+    "AttackDamageMax"           "20"     // Damage range max.
     "AttackDamageType"          "DAMAGE_TYPE_ArmorPhysical"
     "AttackRate"                "1"     // Speed of attack.
     "AttackAnimationPoint"      "0.5"   // Normalized time in animation cycle to attack.
@@ -73,8 +73,8 @@
 
     // Status
     //----------------------------------------------------------------
-    "StatusHealth"        "500"     // Base health.
-    "StatusHealthRegen"     "5"     // Health regeneration rate.
+    "StatusHealth"        "4000"     // Base health.
+    "StatusHealthRegen"     "0"     // Health regeneration rate.
     "StatusMana"        "2000"     // Base mana.
     "StatusManaRegen"     "0"     // Mana regeneration rate.
 
@@ -135,7 +135,7 @@
         "Model"             "models/items/earthshaker/totem_dragon_wall/fissure_head.vmdl"  // Model.
         "SoundSet"          "Creep_Good_Range"          // Name of sound set.
         "Level"             "1"
-        "UnitLabel"         "Totem"
+        "UnitLabel"         "npc_lina_totem"
         "ModelScale"        "1"
         "IsSummoned"        "1"
         "ConsideredHero"    "0"

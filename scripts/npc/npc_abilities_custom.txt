@@ -632,11 +632,7 @@
     }
   }
 
-
-
-
-
-
+  // E spell
   // Rewrite of the Lion Impale ability
   // Author: Pizzalol
   // Date: 18.01.2015.
@@ -644,14 +640,145 @@
   {
     // General
     //-------------------------------------------------------------------------------------------------------------
-    "BaseClass"       "ability_datadriven"
-    "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
-    "AbilityUnitTargetTeam"     "DOTA_UNIT_TARGET_TEAM_ENEMY"
+    "BaseClass"                 "ability_datadriven"
+    "AbilityBehavior"           "DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+    "AbilityUnitTargetTeam"     "DOTA_UNIT_TARGET_TEAM_BOTH"
     "AbilityUnitTargetType"     "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
     "AbilityUnitDamageType"     "DAMAGE_TYPE_MAGICAL" 
-    "SpellImmunityType"       "SPELL_IMMUNITY_ENEMIES_NO"
-    "FightRecapLevel"       "1"
-    "AbilityTextureName"      "lion_impale"
+    "SpellImmunityType"         "SPELL_IMMUNITY_ENEMIES_NO"
+    "FightRecapLevel"           "1"
+    "AbilityTextureName"        "lion_impale"
+
+    // Precache
+    //-------------------------------------------------------------------------------------------------------------
+    "precache"
+    {
+      "soundfile"     "soundevents/game_sounds_heroes/game_sounds_lion.vsndevts"
+      "particle"      "particles/units/heroes/hero_lion/lion_spell_impale.vpcf"
+    }
+
+    "AbilityCastRange"        "500"
+    "AbilityCastPoint"        "0"
+    "AbilityCooldown"       "1.0 1.0 1.0 1.0"
+    "AbilityManaCost"       "0 0 0 0"
+    "AbilityDamage"         "80 140 200 260"
+    "AbilitySpecial"
+    {
+      "01"
+      {
+        "var_type"      "FIELD_INTEGER"
+        "width"       "125 125 125 125"
+      }
+      "02"
+      { 
+        "var_type"      "FIELD_FLOAT"
+        "duration"      "1.02 1.52 2.02 2.52"
+      }
+      "03"
+      {
+        "var_type"      "FIELD_INTEGER"
+        "length"      "825"
+      }
+      "04"
+      {
+        "var_type"      "FIELD_INTEGER"
+        "speed"       "1600 1600 1600 1600"
+      }
+      // Extra variables
+      "05"
+      {
+        "var_type"      "FIELD_FLOAT"
+        "air_time"      "0.52"
+      }
+      "06"
+      {
+        "var_type"        "FIELD_FLOAT"
+        "mana_restore"      "5 150 225 300"
+      }
+      "06"
+      {
+        "var_type"        "FIELD_FLOAT"
+        "heal"      "15 20 25"
+      }
+    }
+
+    "OnSpellStart"
+    {
+      "FireSound"
+      {
+        "EffectName"  "Hero_Lion.Impale"
+        "Target"    "CASTER"
+      }
+
+      "LinearProjectile"
+      {
+        "Target"      "POINT"
+        "EffectName"    "particles/units/heroes/hero_lion/lion_spell_impale.vpcf"
+        "StartRadius"   "%width"
+        "EndRadius"     "%width"
+        "MoveSpeed"     "%speed"
+        "TargetTeams"   "DOTA_UNIT_TARGET_TEAM_BOTH"
+        "TargetTypes"   "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+        "FixedDistance"   "%length"
+        "ProvidesVision"  "0"
+        "HasFrontalCone"  "0"
+      }
+
+      "RunScript"
+      {
+        "ScriptFile"  "scripts/vscripts/abilities/menace.lua"
+        "Function"    "MenaceGain"
+      }
+    }
+
+    "OnProjectileHitUnit"
+    {
+      "DeleteOnHit"   "0"
+
+      "FireSound"
+      {
+        "EffectName"  "Hero_Lion.ImpaleHitTarget"
+        "Target"    "TARGET"
+      }
+
+      "DelayedAction"
+      {
+        "Delay"   "%air_time"
+
+        "Action"
+        {
+          "FireSound"
+          {
+            "EffectName"  "Hero_Lion.ImpaleTargetLand"
+            "Target"    "TARGET"
+          }
+
+          "RunScript"
+          {
+            "ScriptFile"  "scripts/vscripts/abilities/lina/impale.lua"
+            "Function"    "Impale"
+          }
+        }
+      }
+    }
+  }
+
+  // R spell
+  // Rewrite of the Lion Impale ability
+  // Author: Pizzalol
+  // Date: 18.01.2015.
+  "lina_totemic_slam"
+  {
+    // General
+    //-------------------------------------------------------------------------------------------------------------
+    "BaseClass"                 "ability_datadriven"
+    "AbilityBehavior"           "DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+    "AbilityUnitTargetTeam"     "DOTA_UNIT_TARGET_TEAM_BOTH"
+    "AbilityUnitTargetType"     "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+    "AbilityUnitDamageType"     "DAMAGE_TYPE_MAGICAL" 
+    "SpellImmunityType"         "SPELL_IMMUNITY_ENEMIES_NO"
+    "FightRecapLevel"           "1"
+    "AbilityTextureName"        "lion_impale"
 
     // Precache
     //-------------------------------------------------------------------------------------------------------------
@@ -688,7 +815,7 @@
         "width"       "125 125 125 125"
       }
       "02"
-      { 
+      {
         "var_type"      "FIELD_FLOAT"
         "duration"      "1.02 1.52 2.02 2.52"
       }
@@ -713,89 +840,53 @@
         "var_type"        "FIELD_FLOAT"
         "mana_restore"      "5 150 225 300"
       }
+      "06"
+      {
+        "var_type"        "FIELD_FLOAT"
+        "heal"      "15 20 25"
+      }
+      "06"
+      {
+        "var_type"        "FIELD_FLOAT"
+        "radius"      "800"
+      }
     }
 
     "OnSpellStart"
     {
-      "FireSound"
+      "ApplyModifier"
       {
-        "EffectName"  "Hero_Lion.Impale"
-        "Target"    "CASTER"
+        "ModifierName"  "modifier_totemic_slam"
+        "Target"        "CASTER"
+        "Duration"      "5"
       }
-
-      "LinearProjectile"
-      {
-        "Target"      "POINT"
-        "EffectName"    "particles/units/heroes/hero_lion/lion_spell_impale.vpcf"
-        "StartRadius"   "%width"
-        "EndRadius"     "%width"
-        "MoveSpeed"     "%speed"
-        "TargetTeams"   "DOTA_UNIT_TARGET_TEAM_ENEMY"
-        "TargetTypes"   "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
-        "FixedDistance"   "%length"
-        "ProvidesVision"  "0"
-        "HasFrontalCone"  "0"
-      }
-
       "RunScript"
       {
-        "ScriptFile"  "scripts/vscripts/abilities/menace.lua"
-        "Function"    "MenaceGain"
+        "ScriptFile"  "scripts/vscripts/abilities/lina/totemic_slam.lua"
+        "Function"    "TotemicSlam"
       }
     }
 
-    "OnProjectileHitUnit"
+    "Modifiers"
     {
-      "DeleteOnHit"   "0"
-
-      "FireSound"
+      "modifier_totemic_slam"
       {
-        "EffectName"  "Hero_Lion.ImpaleHitTarget"
-        "Target"    "TARGET"
-      }
+        "IsBuff"      "1"
 
-      "RemoveModifier"
-      {
-        "ModifierName"  "modifier_knockback"
-        "Target"    "TARGET"
-      }
+        "StatusEffectName"    "particles/status_fx/status_effect_beserkers_call.vpcf"      
+        "StatusEffectPriority"  "10"
 
-      "Knockback"
-      {
-        "Target"  "TARGET"
-        "Center"  "CASTER"
-        "Distance"  "0"
-        "Duration"  "%air_time"
-        "Height"  "200"
-        "IsFixedDistance" "1"
-      }
-
-      "DelayedAction"
-      {
-        "Delay"   "%air_time"
-
-        "Action"
+        "EffectName"    "particles/units/heroes/hero_omniknight/omniknight_degen_aura_debuff.vpcf"
+        "EffectAttachType"  "follow_origin"
+        "Properties"
         {
-          "FireSound"
-          {
-            "EffectName"  "Hero_Lion.ImpaleTargetLand"
-            "Target"    "TARGET"
-          }
-
-          "Stun"
-          {
-            "Target"    "TARGET"
-            "Duration"    "%duration"
-          }
-
-          "RunScript"
-          {
-            "ScriptFile"  "scripts/vscripts/abilities/lina/impale.lua"
-            "Function"    "Impale"
-          }
+          "MODIFIER_PROPERTY_CASTTIME_PERCENTAGE"  "0"
         }
+        
       }
     }
+
+      //MODIFIER_PROPERTY_CASTTIME_PERCENTAGE +++++++++++++++++++++
   }
 
 
@@ -1008,6 +1099,560 @@
   }
 
 
+  //Nyx assassin
+  //+----------------------------------------------------
 
+
+  // Q spell
+  // Rewrite of Clinkz Searing Arrows
+  // Author: Noya
+  // Date: December 31, 2015
+  // Version: 6.81
+  // Type: Datadriven
+  // NOTE: This uses the old Orb mechanic. Orb Labels seem to be malfunctioning, need to warn Valve about this issue.
+  // A non-orb rewrite might be impossible because OnAttackStart triggers earlier than OnOrbFire (i.e. there's no OnAttackLaunched)
+  "nyx_assassin_deflect"
+  {
+    // General
+    //-------------------------------------------------------------------------------------------------------------
+    "BaseClass"       "ability_datadriven"
+    "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_ATTACK"
+    "AbilityUnitTargetTeam"     "DOTA_UNIT_TARGET_TEAM_ENEMY"
+    "AbilityUnitTargetType"     "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC | DOTA_UNIT_TARGET_MECHANICAL | DOTA_UNIT_TARGET_BUILDING"
+    "AbilityUnitTargetFlags"    "DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
+    "SpellImmunityType"       "SPELL_IMMUNITY_ENEMIES_YES"
+    "AbilityUnitDamageType"     "DAMAGE_TYPE_PHYSICAL"
+    "AbilityTextureName"      "clinkz_searing_arrows"
+
+    // Casting
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityCastRange"        "200"
+    "AbilityCastPoint"        "0.0 0.0 0.0 0.0"
+
+    // Time   
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityCooldown"       "0.0 0.0 0.0 0.0"
+
+    // Cost
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityManaCost"       "0"
+
+    // Special
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilitySpecial"
+    {
+      "01"
+      {
+        "var_type"            "FIELD_INTEGER"
+        "damage"          "100"
+      }
+      "02"
+      {
+        "var_type"            "FIELD_INTEGER"
+        "duration"          "15"
+      }
+      "03"
+      {
+        "var_type"            "FIELD_INTEGER"
+        "damage_reduction"          "-75"
+      }
+    }
+
+    "precache"
+    {
+      "particle"  "particles/units/heroes/hero_clinkz/clinkz_searing_arrow.vpcf"
+      "soundfile" "soundevents/game_sounds_heroes/game_sounds_clinkz.vsndevts"
+    }
+
+    "Modifiers"
+    {
+      "modifier_deflect_damage"
+      {
+        "Passive"               "1"
+        "IsHidden"        "1"
+
+        "Orb"
+        {
+          "Priority"      "DOTA_ORB_PRIORITY_DEFAULT"
+          "ProjectileName"    "particles/units/heroes/hero_clinkz/clinkz_searing_arrow.vpcf"
+          "CastAttack"    "1"
+        }
+
+        "OnOrbFire"
+        {
+          "SpendMana"
+          {
+            "Mana"        "%AbilityManaCost"
+          }
+
+          "FireSound"
+          {
+            "EffectName"  "Hero_Clinkz.SearingArrows"
+            "Target"    "CASTER"
+          }
+
+          "ApplyModifier"
+          {
+            "ModifierName"  "modifier_deflect_resistance"
+            "Target"        "CASTER"
+            "Duration"      "%duration"
+          }
+        }
+        
+        "OnOrbImpact"
+        {
+          "Damage"
+          {
+            "Type"          "DAMAGE_TYPE_PHYSICAL"
+            "Damage"        "%damage"
+            "Target"    "TARGET"
+          }
+
+          "FireSound"
+          {
+            "EffectName"  "Hero_Clinkz.SearingArrows.Impact"
+            "Target"    "CASTER"
+          }
+        }
+      }
+
+      "modifier_deflect_resistance"
+      {
+          "Properties"
+          {
+            "MODIFIER_PROPERTY_INCOMING_DAMAGE_PERCENTAGE" "%damage_reduction"
+          }
+      }
+    }
+
+  }
+
+
+  // E spell
+  // Rewrite of Skeleton Wraith King Vampiric Aura
+  // Author: Noya
+  // Date: 12.1.2015.
+  // Notes: Using the datadriven Lifesteal Action (shows a +Healed green popup)
+  "nyx_assassin_shell_armor"
+  {
+    // General
+    //-------------------------------------------------------------------------------------------------------------
+    "BaseClass"                 "ability_datadriven"
+    "AbilityBehavior"           "DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+    "AbilityUnitTargetTeam"     "DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+    "AbilityTextureName"        "axe_berserkers_call"
+
+    "AbilityManaCost"       "0 0 0 0"
+    
+    "AbilitySpecial"
+    {
+      "03"
+      {
+        "var_type"        "FIELD_INTEGER"
+        "armor"     "50 20 25 30"
+      }
+      "04"
+      {
+        "var_type"        "FIELD_INTEGER"
+        "duration"     "2 20 25 30"
+      }
+    }
+
+    "precache"
+    {
+      "soundfile" "soundevents/game_sounds_heroes/game_sounds_omniknight.vsndevts"
+      "particle"  "particles/units/heroes/hero_omniknight/omniknight_degen_aura_debuff.vpcf"
+    }
+
+    "OnSpellStart"
+    {     
+      "ApplyModifier"
+      {
+        "ModifierName"  "modifier_bone_help"
+        "Target"        "CASTER"
+        "Duration"      "%duration"
+      }
+    }
+
+    "Modifiers"
+    {
+      "modifier_bone_help"
+      {
+        "IsBuff"      "1"
+
+        "StatusEffectName"    "particles/status_fx/status_effect_beserkers_call.vpcf"      
+        "StatusEffectPriority"  "10"
+
+        "EffectName"    "particles/units/heroes/hero_omniknight/omniknight_degen_aura_debuff.vpcf"
+        "EffectAttachType"  "follow_origin"
+        "Properties"
+        {
+          "MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"  "%armor"
+        }
+        
+      }
+    }
+
+  }
+
+
+
+
+
+
+
+
+
+
+  // R spell// Rewrite of the Axe Berserkers Call ability
+  // Author: Pizzalol
+  // Date: October 14, 2015
+  // Version: 6.83
+  // Type: Datadriven
+  //
+  // ----- FILE REQUIREMENTS -----
+  // Script files:
+  // scripts/vscripts/heroes/hero_axe/berserkers_call.lua
+  "nyx_assassin_catch_me"
+  {
+    // General
+    //-------------------------------------------------------------------------------------------------------------
+    "BaseClass"       "ability_datadriven"
+    "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_MOVEMENT"
+    "SpellImmunityType"       "SPELL_IMMUNITY_ENEMIES_YES"
+    "FightRecapLevel"       "1"
+    "AbilityTextureName"      "axe_berserkers_call"
+
+    // Precache
+    //-------------------------------------------------------------------------------------------------------------
+    "precache"
+    {
+      "soundfile"     "soundevents/game_sounds_heroes/game_sounds_axe.vsndevts"
+      "particle"      "particles/units/heroes/hero_axe/axe_beserkers_call_owner.vpcf"
+      "particle"      "particles/status_fx/status_effect_beserkers_call.vpcf"
+    }
+
+    // Casting
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityCastPoint"        "0.3 0.3 0.3 0.3"
+
+    // Time   
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityCooldown"       "2"
+
+    // Damage.
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityDamage"         "0 0 0 0"
+
+    // Cost
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityManaCost"       "0" 
+    
+    // Special
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilitySpecial"
+    {
+      "01"
+      {
+        "var_type"        "FIELD_INTEGER"
+        "radius"        "300"
+      }
+      "02"
+      {
+        "var_type"        "FIELD_INTEGER"
+        "bonus_movespeed"     "250"
+      }
+      "03"
+      {
+        "var_type"        "FIELD_FLOAT"
+        "duration"        "5"
+      } 
+    }
+
+    "OnSpellStart"
+    {
+      "FireSound"
+      {
+        "EffectName"  "Hero_Axe.Berserkers_Call"
+        "Target"    "CASTER"
+      }
+
+      "RemoveModifier"
+      {
+        "ModifierName"  "modifier_catch_me_caster"
+        "Target"    "CASTER"
+      }
+
+      "ApplyModifier"
+      {
+        "ModifierName"  "modifier_catch_me_caster"
+        "Target"    "CASTER"
+        "Duration"    "%duration"
+      }
+
+      "ActOnTargets"
+      {
+        "Target"
+        {
+          "Center"  "CASTER"
+          "Radius"  "%radius"
+          "Teams"   "DOTA_UNIT_TARGET_TEAM_ENEMY"
+          "Types"   "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+          "Flags"   "DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES | DOTA_UNIT_TARGET_FLAG_INVULNERABLE"
+        }
+      
+        "Action"    
+        {
+          "ApplyModifier"
+          {
+            "ModifierName"  "modifier_catch_me_ennemy"
+            "Target"    "TARGET"
+            "Duration"    "%duration"
+          }
+        }
+      }
+    }
+
+    "Modifiers"
+    {
+      "modifier_catch_me_caster"
+      {
+        "IsPurgable"    "0"
+        "IsBuff"      "1"
+    
+        "OnCreated"
+        {
+          "AttachEffect"
+          {
+            "Target"      "CASTER"
+            "EffectName"        "particles/units/heroes/hero_axe/axe_beserkers_call_owner.vpcf"
+            "EffectAttachType"  "follow_origin"
+            "ControlPoints"
+            {
+              "02"    "%radius 1 1" //Required for Rampant Outrage (axe immortal)
+            }
+            "ControlPointEntities"
+            {
+              "CASTER"  "follow_origin"
+              "CASTER"  "follow_origin"
+              "CASTER"  "follow_origin"
+            }
+          }
+        }
+    
+        "Properties"
+        {
+          "MODIFIER_PROPERTY_MOVESPEED_BONUS_CONSTANT"  "%bonus_movespeed"
+        }
+      }
+
+      "modifier_catch_me_ennemy"
+      {
+        "IsPurgable"    "0"
+        "IsDebuff"      "1"
+
+        "StatusEffectName"    "particles/status_fx/status_effect_beserkers_call.vpcf"      
+        "StatusEffectPriority"  "10"
+
+        "ThinkInterval"  "0.1"
+        "OnIntervalThink"
+        {
+          "RunScript"
+          {
+            "ScriptFile"  "scripts/vscripts/abilities/nyx_assassin/catch_me.lua"
+            "Function"    "CatchMe"
+          }
+        }
+
+        "OnDestroy"
+        {
+          "RunScript"
+          {
+            "ScriptFile"  "scripts/vscripts/abilities/nyx_assassin/catch_me.lua"
+            "Function"    "CatchMeEnd"
+          }
+        }
+      }
+    }
+  }
+
+  // W spell
+  // Rewrite of the Mirana Leap ability
+  // Author: Pizzalol
+  // Date: 26.09.2015.
+  "nyx_assassin_back_plan"
+  {
+    // General
+    //-------------------------------------------------------------------------------------------------------------
+    "BaseClass"       "ability_datadriven"
+    "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+    "AbilityTextureName"  "mirana_leap"
+
+    // Precache
+    //-------------------------------------------------------------------------------------------------------------
+    "precache"
+    {
+      "soundfile"     "soundevents/game_sounds_heroes/game_sounds_mirana.vsndevts"
+    }
+    
+    // Casting
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityCastRange"        "0"
+    "AbilityCastPoint"        "0.0 0.0 0.0 0.0"
+
+    // Time   
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityCooldown"       "30.0 26.0 22.0 18.0"
+    "AbilityDuration"       "10.0"
+
+    // Cost
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityManaCost"       "0"
+
+    // Special
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilitySpecial"
+    {
+      "01"
+      {
+        "var_type"        "FIELD_INTEGER"
+        "leap_distance"     "600 700 800 900"
+      }
+      "02"
+      {
+        "var_type"        "FIELD_FLOAT"
+        "leap_speed"      "1600.0"
+      }
+      "03"
+      {
+        "var_type"        "FIELD_FLOAT"
+        "leap_acceleration"   "7000.0"
+      }
+      "04"
+      {
+        "var_type"      "FIELD_INTEGER"
+        "radius"        "775"
+      }
+      "07"
+      {
+        "var_type"        "FIELD_FLOAT"
+        "leap_duration"     "10.0"
+      }
+      "08"
+      {
+        "var_type"        "FIELD_INTEGER"
+        "departure_damage"     "100"
+      }
+      "09"
+      {
+        "var_type"        "FIELD_INTEGER"
+        "arrival_heal"     "2"
+      }
+      "10"
+      {
+        "var_type"        "FIELD_INTEGER"
+        "arrival_heal_duration"     "10"
+      }
+      "11"
+      {
+        "var_type"        "FIELD_FLOAT"
+        "arrival_heal_delay"     "0.8"
+      }
+    }
+
+    "OnSpellStart"
+    {
+      "FireSound"
+      {
+        "EffectName"  "Ability.Leap"
+        "Target"    "CASTER"
+      }
+      
+      "RunScript"
+      {
+        "ScriptFile"  "scripts/vscripts/abilities/nyx_assassin/back_plan.lua"
+        "Function"    "Leap"
+      }
+
+      "ApplyMotionController"
+      // For this: gfycat.com/BraveHideousGiantschnauzer -> check: bit.ly/1KWulqA
+      {
+          "Target"    "CASTER"
+          "ScriptFile"    "scripts/vscripts/abilities/nyx_assassin/back_plan.lua"
+          "HorizontalControlFunction" "LeapHorizonal"
+          "VerticalControlFunction"   "LeapVertical"         
+      }
+
+      //Damage on arrival
+      "ActOnTargets"
+      {
+        "Target"
+        {
+          "Center"        "CASTER"
+          "Radius"        "%radius"
+          "Teams"         "DOTA_UNIT_TARGET_TEAM_ENEMY"
+          "Types"         "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+        }
+
+        "Action"
+        {
+          "Damage"
+          {
+            "Target"  "TARGET"
+            "Type"    "DAMAGE_TYPE_MAGICAL"
+            "Damage"  "%departure_damage"
+          }
+        }
+      }
+
+      // Heal on arrival
+      "DelayedAction"
+      {
+        "Delay"     "%arrival_heal_delay"
+        "Action"    
+        {
+          "ActOnTargets"
+          {
+            "Target"
+            {
+              "Center"        "CASTER"
+              "Radius"        "%radius"
+              "Teams"         "DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+              "Types"         "DOTA_UNIT_TARGET_HERO"
+            }
+
+            "Action"
+            {
+              "ApplyModifier"
+              {
+                "Target"        "TARGET"
+                "ModifierName"  "modifier_back_plan_heal"
+                "duration"      "%arrival_heal_duration"
+              }
+            }
+          }
+        }
+      }
+    }
+    "Modifiers"
+    {
+      "modifier_back_plan_heal"
+      {
+        "Passive"       "0"
+        "IsHidden"      "0"
+        "IsBuff"        "1"
+    
+        "Properties"
+        {
+          "MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT" "%arrival_heal"
+        }
+      }
+    }
+  }
+
+
+
+
+  //EOF
 }
 
