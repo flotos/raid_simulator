@@ -5,8 +5,8 @@
     "AbilityLayout"     "4"
     "override_hero"     "npc_dota_hero_lina"
     "SoundSet"          "0"
-    "Ability1"        "lina_impale"
-    "Ability2"        "lina_totem"
+    "Ability1"        "lina_totem"
+    "Ability2"        "lina_impale"
     "Ability3"        "lina_teleport_totem"
     "Ability4"        "lina_totemic_slam"
 
@@ -14,8 +14,8 @@
     "MagicalResistance"       "0"                 // Magical protection (percentage).
 
     "AttackCapabilities"    "DOTA_UNIT_CAP_RANGED_ATTACK"
-    "AttackDamageMin"     "400"                   // Damage range min.
-    "AttackDamageMax"     "499"                   // Damage range max.
+    "AttackDamageMin"     "20"                   // Damage range min.
+    "AttackDamageMax"     "20"                   // Damage range max.
 
     //"AttributePrimary"      "DOTA_ATTRIBUTE_STRENGTH"
     "AttributeBaseStrength"   "0"                   // Base strength
@@ -33,7 +33,7 @@
     //"RingRadius"        "70"
 
     "MovementCapabilities"    "DOTA_UNIT_CAP_MOVE_GROUND"
-    "MovementSpeed"       "360"                 // Speed.
+    "MovementSpeed"       "300"                 // Speed.
     "MovementTurnRate"      "1.0"                 // Turning rate.
 
     "StatusHealth"        "100"                 // Base health.
@@ -41,7 +41,7 @@
     "StatusMana"        "100"                   // Base mana.
     "StatusManaRegen"     "-2"                 // Mana regeneration rate.
 
-    "VisionDaytimeRange"    "1800"                  // Range of vision at night time.
+    "VisionDaytimeRange"    "1800"                  // Range of vision at day time.
     "VisionNighttimeRange"    "1800"                  // Range of vision at night time.
   }
 
@@ -104,8 +104,8 @@
     "MagicalResistance"       "0"                 // Magical protection (percentage).
 
     "AttackCapabilities"    "DOTA_UNIT_CAP_RANGED_ATTACK"
-    "AttackDamageMin"     "10"                   // Damage range min.
-    "AttackDamageMax"     "10"                   // Damage range max.
+    "AttackDamageMin"     "18"                   // Damage range min.
+    "AttackDamageMax"     "18"                   // Damage range max.
 
     //"AttributePrimary"      "DOTA_ATTRIBUTE_STRENGTH"
     "AttributeBaseStrength"   "0"                   // Base strength
@@ -123,10 +123,10 @@
     //"RingRadius"        "70"
 
     "MovementCapabilities"    "DOTA_UNIT_CAP_MOVE_GROUND"
-    "MovementSpeed"       "360"                 // Speed.
+    "MovementSpeed"       "350"                 // Speed.
     "MovementTurnRate"      "1.0"                 // Turning rate.
 
-    "StatusHealth"        "10000"                 // Base health.
+    "StatusHealth"        "100"                 // Base health.
     "StatusHealthRegen"     "0.0"                 // Health regeneration rate.
     "StatusMana"        "100"                   // Base mana.
     "StatusManaRegen"     "-2"                 // Mana regeneration rate.

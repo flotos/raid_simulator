@@ -12,7 +12,7 @@
     "SoundSet"          "Creep_Good_Range"          // Name of sound set.
     "Level"             "1"
     "UnitLabel"         "piggy"
-    "ModelScale"        "4"
+    "ModelScale"        "2"
     
     // Abilities
     //----------------------------------------------------------------
@@ -34,12 +34,12 @@
     // Attack
     //----------------------------------------------------------------
     "AttackCapabilities"        "DOTA_UNIT_CAP_MELEE_ATTACK"     // Type of attack - melee, ranged, etc.
-    "AttackDamageMin"           "20"     // Damage range min.
-    "AttackDamageMax"           "20"     // Damage range max.
+    "AttackDamageMin"           "10"     // Damage range min.
+    "AttackDamageMax"           "10"     // Damage range max.
     "AttackDamageType"          "DAMAGE_TYPE_ArmorPhysical"
     "AttackRate"                "1"     // Speed of attack.
     "AttackAnimationPoint"      "0.5"   // Normalized time in animation cycle to attack.
-    "AttackAcquisitionRange"    "1200"   // Range within a target can be acquired.
+    "AttackAcquisitionRange"    "1000"   // Range within a target can be acquired.
     "AttackRange"               "100"   // Range within a target can be attacked.
     "ProjectileModel"           "" // Particle system model for projectile.
     "ProjectileSpeed"           "900"   // Speed of projectile.
@@ -73,10 +73,10 @@
 
     // Status
     //----------------------------------------------------------------
-    "StatusHealth"        "4000"     // Base health.
+    "StatusHealth"          "600"     // Base health.
     "StatusHealthRegen"     "0"     // Health regeneration rate.
-    "StatusMana"        "2000"     // Base mana.
-    "StatusManaRegen"     "0"     // Mana regeneration rate.
+    "StatusMana"            "2000"     // Base mana.
+    "StatusManaRegen"       "0"     // Mana regeneration rate.
 
     // Team
     //----------------------------------------------------------------

@@ -414,8 +414,8 @@
     "LevelsBetweenUpgrades"  "1"
 
     "AbilityCastRange"        "200 550 980"
-    "AbilityCastPoint"        "0.0 0.0 0.0"
-    "AbilityCooldown"       "5.0 55 40"
+    "AbilityCastPoint"        "0.3 0.3 0.3"
+    "AbilityCooldown"       "25 20 15"
     "AbilityManaCost"       "0"
     
     "AbilitySpecial"
@@ -423,18 +423,23 @@
       "01"
       {
         "var_type"        "FIELD_FLOAT"
-        "duration"        "40.0"
+        "duration"        "25.0 30.0 45.0"
       }
       "02"
       {
         "var_type"        "FIELD_FLOAT"
-        "bonus_damage"    "100 35 75"
+        "bonus_damage"    "35 50 75"
       }
       //USED only for the tooltip
       "03"
       {
         "var_type"        "FIELD_INTEGER"
-        "radius"        "400 450 900"
+        "radius"        "300"
+      }
+      "04"
+      {
+        "var_type"        "FIELD_FLOAT"
+        "menace_gain"      "15 15 10"
       }
     }
 
@@ -446,6 +451,12 @@
         "Function"      "lina_totem_on_spell_start"
         "Target"        "POINT"
         "Duration"      "%duration"
+      }
+
+      "RunScript"
+      {
+        "ScriptFile"  "scripts/vscripts/abilities/menace.lua"
+        "Function"    "MenaceGain"
       }
     }
   }
@@ -467,13 +478,18 @@
       "01"
       {
         "var_type"        "FIELD_INTEGER"
-        "radius"        "400 450 900"
+        "aura_radius"        "300"
       }
       // Extra
       "02"
       {
         "var_type"        "FIELD_FLOAT"
         "think_interval"    "1"
+      }
+      "0"
+      {
+        "var_type"        "FIELD_FLOAT"
+        "menace_gain"      "5 150 225 300"
       }
     }
 
@@ -489,8 +505,8 @@
           {
             "Target"
             {
-              "Center"    "CASTER"
-              "Radius"  "%radius"
+              "Center"  "CASTER"
+              "Radius"  "%aura_radius"
               "Teams"   "DOTA_UNIT_TARGET_TEAM_FRIENDLY"
               "Types"   "DOTA_UNIT_TARGET_HERO"
             }
@@ -515,7 +531,7 @@
             "Target"
             {
               "Center"    "CASTER"
-              "Radius"  "%radius"
+              "Radius"  "%aura_radius"
               "Teams"   "DOTA_UNIT_TARGET_TEAM_FRIENDLY"
               "Types"   "DOTA_UNIT_TARGET_HERO"
             }
@@ -588,8 +604,8 @@
 
     // Time   
     //-------------------------------------------------------------------------------------------------------------
-    "AbilityCastRange"        "600 800 1200"
-    "AbilityCooldown"       "24.0 24.0 24.0 24.0"
+    "AbilityCastRange"        "800 1200 3000"
+    "AbilityCooldown"       "5 4 0"
 
     // Cost
     //-------------------------------------------------------------------------------------------------------------
@@ -597,6 +613,15 @@
 
     // Special
     //-------------------------------------------------------------------------------------------------------------
+
+    "AbilitySpecial"
+    {
+      "04"
+      {
+        "var_type"        "FIELD_FLOAT"
+        "menace_gain"      "10 5 10"
+      }
+    }
 
     "OnSpellStart"
     {
@@ -615,6 +640,12 @@
         "sound_tp_in" "Hero_Chen.TeleportIn"
         "teleport_modifier" "modifier_test_of_faith_teleport_datadriven"
         "teleport_particle" "particles/units/heroes/hero_chen/chen_teleport_flash.vpcf"
+      }
+
+      "RunScript"
+      {
+        "ScriptFile"  "scripts/vscripts/abilities/menace.lua"
+        "Function"    "MenaceGain"
       }
     }
   }
@@ -647,11 +678,11 @@
     }
 
     // Change Totemic Slam range if this changes below
-    "AbilityCastRange"        "825"
-    "AbilityCastPoint"        "0"
-    "AbilityCooldown"       "1.0 1.0 1.0 1.0"
+    "AbilityCastRange"      "825"
+    "AbilityCastPoint"      "0"
+    "AbilityCooldown"       "3 3 2"
     "AbilityManaCost"       "0 0 0 0"
-    "AbilityDamage"         "80 140 200 260"
+    "AbilityDamage"         "50 80 150"
     "AbilitySpecial"
     {
       "01"
@@ -674,21 +705,15 @@
         "var_type"      "FIELD_INTEGER"
         "speed"       "1600 1600 1600 1600"
       }
-      // Extra variables
       "05"
       {
-        "var_type"      "FIELD_FLOAT"
-        "air_time"      "0.52"
+        "var_type"        "FIELD_FLOAT"
+        "menace_gain"      "10 15 20"
       }
       "06"
       {
         "var_type"        "FIELD_FLOAT"
-        "menace_gain"      "5 150 225 300"
-      }
-      "06"
-      {
-        "var_type"        "FIELD_FLOAT"
-        "heal"      "15 20 25"
+        "heal"      "10 20 10"
       }
     }
 
@@ -733,8 +758,6 @@
 
       "DelayedAction"
       {
-        "Delay"   "%air_time"
-
         "Action"
         {
           "FireSound"
@@ -781,40 +804,16 @@
       "particle"      "particles/units/heroes/hero_lion/lion_spell_impale.vpcf"
     }
 
+    //Only for tooltip purpose
     "AbilityCastRange"      "825"
-    "AbilityCastPoint"      "0.3 0.3 0.3 0.3"
-    "AbilityCooldown"       "1.0 1.0 1.0 1.0"
+    "AbilityCastPoint"      "0.3 0.3 0.3"
+    "AbilityCooldown"       "8 4 2"
     "AbilityManaCost"       "0 0 0 0"
-    "AbilityDamage"         "80 140 200 260"
+    //Only for tooltip purpose
+    "AbilityDamage"         "50 80 150"
     
     "AbilitySpecial"
     {
-      "01"
-      {
-        "var_type"      "FIELD_INTEGER"
-        "width"       "125 125 125 125"
-      }
-      "02"
-      {
-        "var_type"      "FIELD_FLOAT"
-        "duration"      "1.02 1.52 2.02 2.52"
-      }
-      "03"
-      {
-        "var_type"      "FIELD_INTEGER"
-        "length"      "825"
-      }
-      "04"
-      {
-        "var_type"      "FIELD_INTEGER"
-        "speed"       "1600 1600 1600 1600"
-      }
-      // Extra variables
-      "05"
-      {
-        "var_type"      "FIELD_FLOAT"
-        "air_time"      "0.52"
-      }
       "06"
       {
         "var_type"        "FIELD_FLOAT"
@@ -1117,9 +1116,8 @@
     "BaseClass"       "ability_datadriven"
     "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_ATTACK"
     "AbilityUnitTargetTeam"     "DOTA_UNIT_TARGET_TEAM_ENEMY"
-    "AbilityUnitTargetType"     "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC | DOTA_UNIT_TARGET_MECHANICAL | DOTA_UNIT_TARGET_BUILDING"
+    "AbilityUnitTargetType"     "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
     "AbilityUnitTargetFlags"    "DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
-    "SpellImmunityType"       "SPELL_IMMUNITY_ENEMIES_YES"
     "AbilityUnitDamageType"     "DAMAGE_TYPE_PHYSICAL"
     "AbilityTextureName"      "clinkz_searing_arrows"
 
@@ -1353,7 +1351,6 @@
     //-------------------------------------------------------------------------------------------------------------
     "BaseClass"       "ability_datadriven"
     "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_MOVEMENT"
-    "SpellImmunityType"       "SPELL_IMMUNITY_ENEMIES_YES"
     "FightRecapLevel"       "1"
     "AbilityTextureName"      "axe_berserkers_call"
 
