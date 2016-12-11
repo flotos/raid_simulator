@@ -50,6 +50,7 @@ function GameMode:OnEntityHurt(keys)
       damagingAbility = EntIndexToHScript( keys.entindex_inflictor )
     end
   end
+
 end
 
 -- An item was picked up off the ground
@@ -248,7 +249,7 @@ function GameMode:OnEntityKilled( keys )
   if killedUnit:GetTeam() == DOTA_TEAM_GOODGUYS then
     GameMode:CheckForDefeat()
   end
-  if killedUnit:GetTeam() == DOTA_TEAM_BADGUYS then
+  if killedUnit:GetTeam() == DOTA_TEAM_BADGUYS and killedUnit:HasModifier("modifier_boss_global_difficulty") then
     GameMode:GiveRewards()
   end
 

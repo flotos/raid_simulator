@@ -265,7 +265,7 @@
     }
   }
   
-  "barebones_empty1"
+  "empty1"
   {
     // General
     //-------------------------------------------------------------------------------------------------------------
@@ -276,7 +276,7 @@
     "AbilityTextureName"            "rubick_empty1"
   }
   
-  "barebones_empty2"
+  "empty2"
   {
     // General
     //-------------------------------------------------------------------------------------------------------------
@@ -287,7 +287,7 @@
     "AbilityTextureName"            "rubick_empty1"
   }
   
-  "barebones_empty3"
+  "_empty3"
   {
     // General
     //-------------------------------------------------------------------------------------------------------------
@@ -298,7 +298,7 @@
     "AbilityTextureName"            "rubick_empty1"
   }
   
-  "barebones_empty4"
+  "empty4"
   {
     // General
     //-------------------------------------------------------------------------------------------------------------
@@ -309,7 +309,7 @@
     "AbilityTextureName"            "rubick_empty1"
   }
   
-  "barebones_empty5"
+  "empty5"
   {
     // General
     //-------------------------------------------------------------------------------------------------------------
@@ -320,7 +320,7 @@
     "AbilityTextureName"            "rubick_empty1"
   }
   
-  "barebones_empty6"
+  "empty6"
   {
     // General
     //-------------------------------------------------------------------------------------------------------------
@@ -389,7 +389,136 @@
 
   //Boss Abilities
   //-----------------------------------------------------
+  //Boss global ability : difficulty
+  "boss_global_difficulty"
+  {
+    // General
+    //-------------------------------------------------------------------------------------------------------------
+    "BaseClass"       "ability_datadriven"
+    "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_MOVEMENT"
+    "FightRecapLevel"       "1"
+    "AbilityTextureName"      "axe_berserkers_call"
 
+    "MaxLevel"               "3"
+    "RequiredLevel"          "0"
+    "LevelsBetweenUpgrades"  "1"
+
+    "Modifiers"
+    {
+      "modifier_boss_global_difficulty"
+      {
+        "IsHidden"  "0"
+        "Passive" "1"
+      }
+    }
+  }
+
+  //Boss 1
+  //-----------------------------------------------------
+  // Rewrite of the Chen Test of Faith ability
+  // Author: Pizzalol
+  // Date: December 30, 2015
+  // Version: 6.86
+  // Type: Datadriven
+  // NOTE: Teleports targets to the middle of the map instead of fountain
+  //
+  // ----- FILE REQUIREMENTS -----
+  // Script files:
+  // scripts/vscripts/heroes/hero_chen/test_of_faith.lua
+  //
+  // KV files:
+  // scripts/npc/abilities/chen/test_of_faith_datadriven.txt
+  "boss_1_tombstone_explode"
+  {
+    // General
+    //-------------------------------------------------------------------------------------------------------------
+    "BaseClass"               "ability_datadriven"
+    "AbilityBehavior"         "DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+    "AbilityUnitTargetTeam"   "DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+    "AbilityTextureName"      "chen_test_of_faith_teleport"
+
+    "MaxLevel"               "3"
+    "RequiredLevel"          "0"
+    "LevelsBetweenUpgrades"  "1"
+
+    // Precache
+    //-------------------------------------------------------------------------------------------------------------
+    "precache"
+    {
+      "soundfile"     "soundevents/game_sounds_heroes/game_sounds_chen.vsndevts"
+      "particle"      "particles/units/heroes/hero_chen/chen_teleport_cast.vpcf"
+      "particle"      "particles/units/heroes/hero_chen/chen_teleport.vpcf"
+      "particle"      "particles/units/heroes/hero_chen/chen_teleport_flash.vpcf"
+    }
+    
+    // Casting
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityCastPoint"        "0.3 0.3 0.3 0.3"
+
+    // Time   
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityCastRange"        "800 1200 3000"
+    "AbilityCooldown"       "200"
+
+    // Cost
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityManaCost"       "0"
+
+    // Special
+    //-------------------------------------------------------------------------------------------------------------
+
+    "AbilitySpecial"
+    {
+      "04"
+      {
+        "var_type"        "FIELD_FLOAT"
+        "menace_gain"      "10 5 10"
+      }
+    }
+
+    "OnSpellStart"
+    {
+      "FireEffect"
+      {
+        "EffectName"        "particles/units/heroes/hero_chen/chen_teleport_cast.vpcf"
+        "EffectAttachType"  "attach_attack1"
+        "Target"            "CASTER"
+      }
+
+      "RunScript"
+      {
+        "ScriptFile"  "scripts/vscripts/abilities/boss_1/tombstone_explode.lua"
+        "Function"    "TombstoneExplode"
+        "sound_tp_out"  "Hero_Chen.TeleportOut"
+        "sound_tp_in" "Hero_Chen.TeleportIn"
+        "teleport_modifier" "modifier_test_of_faith_teleport_datadriven"
+        "teleport_particle" "particles/units/heroes/hero_chen/chen_teleport_flash.vpcf"
+      }
+      "ApplyModifier"
+      {
+        "ModifierName"  "modifier_tombstone_explode_cast"
+        "Target"        "CASTER"
+        "Duration"      "2"
+      }
+    }
+
+    "Modifiers"
+    {
+      "modifier_tombstone_explode_cast"
+      {
+        "Passive"      "0"
+        "IsHidden"      "0"
+        "EffectName"    "particles/test_particle/damage_immunity.vpcf"
+        "EffectAttachType"  "follow_origin"
+        "Target"      "CASTER"
+    
+        "Properties"
+        {
+          "MODIFIER_STATE_INVULNERABLE" "MODIFIER_STATE_VALUE_ENABLED"
+        }
+      }
+    }
+  }
 
   //Heroes abilities
   //-----------------------------------------------------
@@ -682,7 +811,7 @@
     "AbilityCastPoint"      "0"
     "AbilityCooldown"       "3 3 2"
     "AbilityManaCost"       "0 0 0 0"
-    "AbilityDamage"         "50 80 150"
+    "AbilityDamage"         "70 90 150"
     "AbilitySpecial"
     {
       "01"
@@ -804,30 +933,18 @@
       "particle"      "particles/units/heroes/hero_lion/lion_spell_impale.vpcf"
     }
 
-    //Only for tooltip purpose
+    //If more than impale range, lina will need to move
     "AbilityCastRange"      "825"
     "AbilityCastPoint"      "0.3 0.3 0.3"
-    "AbilityCooldown"       "8 4 2"
-    "AbilityManaCost"       "0 0 0 0"
-    //Only for tooltip purpose
-    "AbilityDamage"         "50 80 150"
+    "AbilityCooldown"       "30 5 2"
+    "AbilityManaCost"       "30 40 50"
     
     "AbilitySpecial"
     {
-      "06"
+      "04"
       {
         "var_type"        "FIELD_FLOAT"
-        "mana_restore"      "5 150 225 300"
-      }
-      "06"
-      {
-        "var_type"        "FIELD_FLOAT"
-        "heal"      "15 20 25"
-      }
-      "06"
-      {
-        "var_type"        "FIELD_FLOAT"
-        "radius"      "800"
+        "menace_gain"      "15 15 10"
       }
     }
 
@@ -837,12 +954,18 @@
       {
         "ModifierName"  "modifier_totemic_slam"
         "Target"        "CASTER"
-        "Duration"      "5"
+        "Duration"      "0.6"
       }
       "RunScript"
       {
         "ScriptFile"  "scripts/vscripts/abilities/lina/totemic_slam.lua"
         "Function"    "TotemicSlam"
+      }
+
+      "RunScript"
+      {
+        "ScriptFile"  "scripts/vscripts/abilities/menace.lua"
+        "Function"    "MenaceGain"
       }
     }
 
@@ -866,7 +989,11 @@
       }
     }
 
-      //MODIFIER_PROPERTY_CASTTIME_PERCENTAGE +++++++++++++++++++++
+      "RunScript"
+      {
+        "ScriptFile"  "scripts/vscripts/abilities/menace.lua"
+        "Function"    "MenaceGain"
+      }
   }
 
 
@@ -1114,7 +1241,7 @@
     // General
     //-------------------------------------------------------------------------------------------------------------
     "BaseClass"       "ability_datadriven"
-    "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_ATTACK"
+    "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_AUTOCAST | DOTA_ABILITY_BEHAVIOR_ATTACK"
     "AbilityUnitTargetTeam"     "DOTA_UNIT_TARGET_TEAM_ENEMY"
     "AbilityUnitTargetType"     "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
     "AbilityUnitTargetFlags"    "DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
@@ -1125,43 +1252,39 @@
     "RequiredLevel"          "0"
     "LevelsBetweenUpgrades"  "1"
 
-    
-    // Casting
-    //-------------------------------------------------------------------------------------------------------------
     "AbilityCastRange"        "200"
     "AbilityCastPoint"        "0.0 0.0 0.0 0.0"
 
-    // Time   
-    //-------------------------------------------------------------------------------------------------------------
-    "AbilityCooldown"       "0.0 0.0 0.0 0.0"
-
     // Cost
     //-------------------------------------------------------------------------------------------------------------
-    "AbilityManaCost"       "0"
+    "AbilityManaCost"       "0 0 5"
 
-    // Special
-    //-------------------------------------------------------------------------------------------------------------
     "AbilitySpecial"
     {
       "01"
       {
         "var_type"            "FIELD_INTEGER"
-        "damage"          "100"
+        "damage"              "20 40 50"
       }
       "02"
       {
-        "var_type"            "FIELD_INTEGER"
-        "duration"          "15"
+        "var_type"            "FIELD_FLOAT"
+        "duration"          "0.5 1 0.5"
       }
       "03"
       {
-        "var_type"            "FIELD_INTEGER"
-        "damage_reduction"          "-75"
+        "var_type"                  "FIELD_INTEGER"
+        "damage_reduction"          "-20 -30 -40"
       }
       "04"
       {
         "var_type"            "FIELD_INTEGER"
-        "passive_attack_damage"          "5 10 15 20"
+        "passive_attack_damage"          "5 10 25"
+      }
+      "05"
+      {
+        "var_type"        "FIELD_FLOAT"
+        "menace_gain"      "5 10 15"
       }
     }
 
@@ -1187,6 +1310,13 @@
 
         "OnOrbFire"
         {
+
+          "RunScript"
+          {
+            "ScriptFile"  "scripts/vscripts/abilities/menace.lua"
+            "Function"    "MenaceGain"
+          }
+
           "SpendMana"
           {
             "Mana"        "%AbilityManaCost"
@@ -1233,6 +1363,7 @@
 
       "modifier_deflect_passive"
       {
+        "IsHidden"  "1"
         "Passive" "1"
         "Properties"
         {
@@ -1263,6 +1394,8 @@
     "MaxLevel"               "3"
     "RequiredLevel"          "0"
     "LevelsBetweenUpgrades"  "1"
+    "AbilityCooldown"        "25 15 0"
+    "AbilityManaCost"        "50 50 50"
 
     
     "AbilitySpecial"
@@ -1270,12 +1403,12 @@
       "01"
       {
         "var_type"        "FIELD_INTEGER"
-        "passive_magical_armor"     "50 20 25 30"
+        "passive_magical_armor"     "8 12 20"
       }
       "02"
       {
-        "var_type"        "FIELD_INTEGER"
-        "duration"     "2 20 25 30"
+        "var_type"        "FIELD_FLOAT"
+        "duration"        "1 1.5 1"
       }
       "03"
       {
@@ -1285,7 +1418,12 @@
       "04"
       {
         "var_type"                    "FIELD_INTEGER"
-        "magical_resistance"   "10"
+        "magical_resistance"   "40 30 60"
+      }
+      "05"
+      {
+        "var_type"        "FIELD_FLOAT"
+        "menace_gain"      "50 30 75"
       }
     }
 
@@ -1302,6 +1440,11 @@
         "ModifierName"  "modifier_shell_armor"
         "Target"        "CASTER"
         "Duration"      "%duration"
+      }
+      "RunScript"
+      {
+        "ScriptFile"  "scripts/vscripts/abilities/menace.lua"
+        "Function"    "MenaceGain"
       }
     }
 
@@ -1325,6 +1468,7 @@
 
       "modifier_shell_armor_passive"
       {
+          "IsHidden"  "1"
           "Passive" "1"
           "Properties"
               {
@@ -1368,50 +1512,48 @@
       "particle"      "particles/status_fx/status_effect_beserkers_call.vpcf"
     }
 
-    // Casting
-    //-------------------------------------------------------------------------------------------------------------
-    "AbilityCastPoint"        "0.3 0.3 0.3 0.3"
-
-    // Time   
-    //-------------------------------------------------------------------------------------------------------------
-    "AbilityCooldown"       "2"
-
-    // Damage.
-    //-------------------------------------------------------------------------------------------------------------
-    "AbilityDamage"         "0 0 0 0"
-
-    // Cost
-    //-------------------------------------------------------------------------------------------------------------
-    "AbilityManaCost"       "0" 
+    "AbilityCastPoint"      "0.3 0.3 0.3 0.3"
+    "AbilityCooldown"       "40 20 30"
+    "AbilityManaCost"       "10 10 100" 
     
-    // Special
-    //-------------------------------------------------------------------------------------------------------------
     "AbilitySpecial"
     {
       "01"
       {
         "var_type"        "FIELD_INTEGER"
-        "radius"        "300"
+        "radius"        "300 350 500"
       }
       "02"
       {
         "var_type"        "FIELD_INTEGER"
-        "bonus_movespeed"     "250"
+        "bonus_movespeed"     "100"
       }
       "03"
       {
         "var_type"        "FIELD_FLOAT"
-        "duration"        "5"
+        "duration"        "3 3 8"
       }
       "04"
       {
         "var_type"        "FIELD_INTEGER"
         "passive_armor"   "5 10 15"    
-      } 
+      }
+      "05"
+      {
+        "var_type"        "FIELD_FLOAT"
+        "menace_gain"      "15 15 90"
+      }
     }
 
     "OnSpellStart"
     {
+
+      "RunScript"
+      {
+        "ScriptFile"  "scripts/vscripts/abilities/menace.lua"
+        "Function"    "MenaceGain"
+      }
+
       "FireSound"
       {
         "EffectName"  "Hero_Axe.Berserkers_Call"
@@ -1517,6 +1659,7 @@
 
       "modifier_catch_me_passive"
       {
+        "IsHidden"  "1"
         "Passive" "1"
         "Properties"
         {
@@ -1546,11 +1689,7 @@
       "soundfile"     "soundevents/game_sounds_heroes/game_sounds_mirana.vsndevts"
     }
     
-    "AbilityCastRange"        "0"
-    "AbilityCastPoint"        "0.0 0.0 0.0 0.0"
-    "AbilityCooldown"       "30.0 26.0 22.0 18.0"
-    "AbilityDuration"       "10.0"
-
+    "AbilityCooldown"       "10 10 5"
     "AbilityManaCost"       "0"
 
     // Special
@@ -1565,7 +1704,7 @@
       "02"
       {
         "var_type"        "FIELD_FLOAT"
-        "leap_speed"      "1600.0"
+        "leap_speed"      "1600.0 1800.0 2200.0"
       }
       "03"
       {
@@ -1585,17 +1724,17 @@
       "08"
       {
         "var_type"        "FIELD_INTEGER"
-        "departure_damage"     "100"
+        "departure_damage"     "50 70 100"
       }
       "09"
       {
         "var_type"        "FIELD_INTEGER"
-        "arrival_heal"     "2"
+        "arrival_heal"     "3 3 4"
       }
       "10"
       {
         "var_type"        "FIELD_INTEGER"
-        "arrival_heal_duration"     "10"
+        "arrival_heal_duration"     "10 15 15"
       }
       "11"
       {
@@ -1605,13 +1744,25 @@
       "12"
       {
         "var_type"        "FIELD_INTEGER"
-        "passive_movespeed_constant"     "100 200 300 400"
+        "passive_movespeed_constant"     "40 80 120"
+      }
+      "05"
+      {
+        "var_type"        "FIELD_FLOAT"
+        "menace_gain"      "5 5 10"
       }
     
     }
 
     "OnSpellStart"
     {
+
+      "RunScript"
+      {
+        "ScriptFile"  "scripts/vscripts/abilities/menace.lua"
+        "Function"    "MenaceGain"
+      }
+
       "FireSound"
       {
         "EffectName"  "Ability.Leap"
